@@ -1,0 +1,143 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+  <meta charset="utf-8" />\
+  <meta name="viewport" content="width=device-width, initial-scale=1" />\
+  <title>Industrial Softener Capacity Calculator</title>\
+  <style>\
+    :root \{\
+      --bg: #0b0c0f;\
+      --card: #111318;\
+      --muted: #9aa3af;\
+      --fg: #eef2f7;\
+      --accent: #3b82f6;\
+      --line: #1f2430;\
+    \}\
+    html,body \{ background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; \}\
+    .wrap \{ max-width: 1100px; margin: 32px auto; padding: 0 16px; \}\
+    h1 \{ margin: 0 0 8px; font-size: 28px; \}\
+    p.note \{ color: var(--muted); margin: 0 0 18px; \}\
+    .card \{ background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 16px 0; \}\
+    .grid \{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; \}\
+    label \{ font-weight: 600; display: block; margin-bottom: 6px; \}\
+    input, select \{\
+      width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);\
+      background: #0e1015; color: var(--fg); font-size: 15px;\
+    \}\
+    button \{\
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 0; cursor: pointer;\
+      background: var(--accent); color: white; font-weight: 700; font-size: 16px;\
+    \}\
+    table \{ width: 100%; border-collapse: collapse; margin-top: 8px; \}\
+    th, td \{ text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); font-size: 18px; \}\
+    th \{ color: #cbd5e1; font-weight: 700; \}\
+    .muted \{ color: var(--muted); font-size: 13px; margin-top: 6px; \}\
+    .badge \{ display: inline-block; background: #0e1015; border: 1px solid var(--line); padding: 4px 8px; border-radius: 8px; color: #cbd5e1; font-size: 12px; \}\
+  </style>\
+</head>\
+<body>\
+  <div class="wrap">\
+    <h1>Industrial Softener Capacity Calculator</h1>\
+    <p class="note">\
+      Calculates softener throughput (gallons) and regeneration interval using a 10% safety factor\
+      (<span class="badge">Capacity \'d7 0.90</span>) to reduce hardness breakthrough risk.  \
+      Includes common industrial tank sizes and dual/parallel vessel configurations.\
+    </p>\
+\
+    <div class="card">\
+      <h2 style="margin-top:0">Inputs</h2>\
+      <div class="grid">\
+        <div>\
+          <label for="hardnessGpg">Raw Water Hardness (gpg)</label>\
+          <input id="hardnessGpg" type="number" step="any" placeholder="e.g. 20" />\
+          <div class="muted">If you have ppm, divide by 17.1 to get gpg.</div>\
+        </div>\
+\
+        <div>\
+          <label for="ironPpm">Iron (ppm Fe)</label>\
+          <input id="ironPpm" type="number" step="any" placeholder="e.g. 0.5" />\
+          <div class="muted">Adds 3 gpg per 1 ppm Fe to effective hardness.</div>\
+        </div>\
+\
+        <div>\
+          <label for="manganesePpm">Manganese (ppm Mn)</label>\
+          <input id="manganesePpm" type="number" step="any" placeholder="e.g. 0.1" />\
+          <div class="muted">Adds 2 gpg per 1 ppm Mn to effective hardness.</div>\
+        </div>\
+\
+        <div>\
+          <label for="dailyUseGpd">Daily Water Use (gpd)</label>\
+          <input id="dailyUseGpd" type="number" step="any" placeholder="e.g. 2500" />\
+          <div class="muted">Enter total plant or process daily usage.</div>\
+        </div>\
+\
+        <div>\
+          <label for="tankSelect">Tank Size (Diameter \'d7 Height)</label>\
+          <select id="tankSelect"></select>\
+          <div class="muted">Auto-fills resin volume. You can override below.</div>\
+        </div>\
+\
+        <div>\
+          <label for="resinCuFt">Resin Volume (cu ft) \'97 override if needed</label>\
+          <input id="resinCuFt" type="number" step="any" placeholder="e.g. 10" />\
+        </div>\
+\
+        <div>\
+          <label for="vesselCount">Vessel Count</label>\
+          <select id="vesselCount">\
+            <option value="1" selected>Single</option>\
+            <option value="2">Dual / Parallel</option>\
+          </select>\
+          <div class="muted">Total system resin = per-vessel ft\'b3 \'d7 vessel count.</div>\
+        </div>\
+\
+        <div>\
+          <label for="saltPreset">Capacity per ft\'b3 (select salt dose curve)</label>\
+          <select id="saltPreset">\
+            <option value="20000">6 lb/ft\'b3 \uc0\u8776  20,000 grains/ft\'b3</option>\
+            <option value="24000" selected>9 lb/ft\'b3 \uc0\u8776  24,000 grains/ft\'b3</option>\
+            <option value="27000">12 lb/ft\'b3 \uc0\u8776  27,000 grains/ft\'b3</option>\
+            <option value="30000">15 lb/ft\'b3 \uc0\u8776  30,000 grains/ft\'b3</option>\
+          </select>\
+        </div>\
+\
+        <div>\
+          <label for="saltDose">Salt Dose (lb/ft\'b3) \'97 optional</label>\
+          <input id="saltDose" type="number" step="any" placeholder="auto from preset" />\
+          <div class="muted">If left blank, inferred from the preset (6/9/12/15).</div>\
+        </div>\
+      </div>\
+\
+      <div style="margin-top:16px">\
+        <button id="calcBtn">Calculate</button>\
+      </div>\
+    </div>\
+\
+    <div class="card">\
+      <h2 style="margin-top:0">Results</h2>\
+      <div id="results"></div>\
+    </div>\
+\
+    <div class="card">\
+      <h2 style="margin-top:0">Notes & Method</h2>\
+      <ul class="muted">\
+        <li><strong>Effective Hardness (gpg)</strong> = Hardness + 3\'d7Fe(ppm) + 2\'d7Mn(ppm).</li>\
+        <li><strong>Total capacity (grains)</strong> = (Capacity/ft\'b3) \'d7 (Total resin ft\'b3).</li>\
+        <li><strong>Throughput (gal)</strong> = Total capacity (gr) \'f7 Effective hardness (gpg).</li>\
+        <li><strong>Apply 10% safety factor</strong>: Capacity_gal_safe = Capacity_gal \'d7 0.90 (e.g., 26,087 \'d7 0.90 = 23,478).</li>\
+        <li><strong>Regeneration interval (days)</strong> = Capacity_gal_safe \'f7 Daily use (gpd).</li>\
+        <li><strong>Salt per regeneration (lb)</strong> = Salt dose (lb/ft\'b3) \'d7 Total resin ft\'b3 (system).</li>\
+      </ul>\
+    </div>\
+  </div>\
+\
+  <script src="calculator.js"></script>\
+</body>\
+</html>}
