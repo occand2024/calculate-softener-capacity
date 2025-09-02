@@ -40,8 +40,8 @@
   <div class="wrap">
     <h1>Industrial Softener Capacity Calculator</h1>
     <p class="note">
-      Calculates softener throughput (gallons) and regeneration interval using a 10% safety factor
-      (<span class="badge">Capacity × 0.90</span>) to reduce hardness breakthrough risk.
+      Calculates softener throughput and regeneration interval with a safety factor
+      (<span class="badge">Capacity × (1 − Safety%)</span>) to reduce hardness breakthrough risk.
     </p>
 
     <div class="card">
@@ -89,6 +89,18 @@
           <label for="saltDose">Salt Dose (lb/ft³) — optional</label>
           <input id="saltDose" type="number" step="any" placeholder="auto from preset" />
         </div>
+
+        <div>
+          <label for="safetyPct">Safety Factor (%)</label>
+          <input id="safetyPct" type="number" step="any" value="10" />
+          <div class="muted">Default 10% (e.g., 26,087 × 0.90 = 23,478 gallons).</div>
+        </div>
+
+        <div>
+          <label for="reservePct">Operational Reserve (%)</label>
+          <input id="reservePct" type="number" step="any" value="0" />
+          <div class="muted">Optional extra derate beyond safety (e.g., outages, variability).</div>
+        </div>
       </div>
 
       <div style="margin-top:16px">
@@ -100,8 +112,7 @@
       <h2 style="margin-top:0">Results</h2>
       <div id="results"></div>
       <div class="disclaimer">
-        <strong>Disclaimer:</strong> Peak flow and other parameters will also matter. We strongly suggest reaching out to Chemstar WATER’s technical team for an accurate sizing.  
-        This calculator is informational only and should not be used as the sole guide to size a softener. Chemstar WATER does not assume responsibility for sizing decisions made from this tool.
+        <strong>Disclaimer:</strong> Peak/service flow, bed area/depth, temperature, resin type, backwash rates, leakage targets, and upstream pretreatment all affect sizing. We strongly suggest reaching out to <strong>Chemstar WATER’s technical team</strong> for an accurate design. This calculator is informational only and should not be used as the sole guide to size a softener. Chemstar WATER does not assume responsibility for sizing decisions made from this tool.
       </div>
     </div>
   </div>
