@@ -14,7 +14,7 @@
       --line: #1f2430;
     }
     html,body { background: var(--bg); color: var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .wrap { max-width: 1100px; margin: 32px auto; padding: 0 16px; }
+    .wrap { max-width: 900px; margin: 32px auto; padding: 0 16px; }
     h1 { margin: 0 0 8px; font-size: 28px; }
     p.note { color: var(--muted); margin: 0 0 18px; }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin: 16px 0; }
@@ -33,6 +33,7 @@
     th { color: #cbd5e1; font-weight: 700; }
     .muted { color: var(--muted); font-size: 13px; margin-top: 6px; }
     .badge { display: inline-block; background: #0e1015; border: 1px solid var(--line); padding: 4px 8px; border-radius: 8px; color: #cbd5e1; font-size: 12px; }
+    .disclaimer { margin-top: 20px; font-size: 13px; color: #9ca3af; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -40,8 +41,7 @@
     <h1>Industrial Softener Capacity Calculator</h1>
     <p class="note">
       Calculates softener throughput (gallons) and regeneration interval using a 10% safety factor
-      (<span class="badge">Capacity × 0.90</span>) to reduce hardness breakthrough risk.  
-      Includes common industrial tank sizes and dual/parallel vessel configurations.
+      (<span class="badge">Capacity × 0.90</span>) to reduce hardness breakthrough risk.
     </p>
 
     <div class="card">
@@ -68,31 +68,15 @@
         <div>
           <label for="dailyUseGpd">Daily Water Use (gpd)</label>
           <input id="dailyUseGpd" type="number" step="any" placeholder="e.g. 2500" />
-          <div class="muted">Enter total plant or process daily usage.</div>
         </div>
 
         <div>
-          <label for="tankSelect">Tank Size (Diameter × Height)</label>
-          <select id="tankSelect"></select>
-          <div class="muted">Auto-fills resin volume. You can override below.</div>
+          <label for="resinCuFt">Resin Volume (ft³)</label>
+          <input id="resinCuFt" type="number" step="any" placeholder="e.g. 20" />
         </div>
 
         <div>
-          <label for="resinCuFt">Resin Volume (cu ft) — override if needed</label>
-          <input id="resinCuFt" type="number" step="any" placeholder="e.g. 10" />
-        </div>
-
-        <div>
-          <label for="vesselCount">Vessel Count</label>
-          <select id="vesselCount">
-            <option value="1" selected>Single</option>
-            <option value="2">Dual / Parallel</option>
-          </select>
-          <div class="muted">Total system resin = per-vessel ft³ × vessel count.</div>
-        </div>
-
-        <div>
-          <label for="saltPreset">Capacity per ft³ (select salt dose curve)</label>
+          <label for="saltPreset">Capacity per ft³ (based on salt dose)</label>
           <select id="saltPreset">
             <option value="20000">6 lb/ft³ ≈ 20,000 grains/ft³</option>
             <option value="24000" selected>9 lb/ft³ ≈ 24,000 grains/ft³</option>
@@ -104,7 +88,6 @@
         <div>
           <label for="saltDose">Salt Dose (lb/ft³) — optional</label>
           <input id="saltDose" type="number" step="any" placeholder="auto from preset" />
-          <div class="muted">If left blank, inferred from the preset (6/9/12/15).</div>
         </div>
       </div>
 
@@ -116,18 +99,10 @@
     <div class="card">
       <h2 style="margin-top:0">Results</h2>
       <div id="results"></div>
-    </div>
-
-    <div class="card">
-      <h2 style="margin-top:0">Notes & Method</h2>
-      <ul class="muted">
-        <li><strong>Effective Hardness (gpg)</strong> = Hardness + 3×Fe(ppm) + 2×Mn(ppm).</li>
-        <li><strong>Total capacity (grains)</strong> = (Capacity/ft³) × (Total resin ft³).</li>
-        <li><strong>Throughput (gal)</strong> = Total capacity (gr) ÷ Effective hardness (gpg).</li>
-        <li><strong>Apply 10% safety factor</strong>: Capacity_gal_safe = Capacity_gal × 0.90 (e.g., 26,087 × 0.90 = 23,478).</li>
-        <li><strong>Regeneration interval (days)</strong> = Capacity_gal_safe ÷ Daily use (gpd).</li>
-        <li><strong>Salt per regeneration (lb)</strong> = Salt dose (lb/ft³) × Total resin ft³ (system).</li>
-      </ul>
+      <div class="disclaimer">
+        <strong>Disclaimer:</strong> Peak flow and other parameters will also matter. We strongly suggest reaching out to Chemstar WATER’s technical team for an accurate sizing.  
+        This calculator is informational only and should not be used as the sole guide to size a softener. Chemstar WATER does not assume responsibility for sizing decisions made from this tool.
+      </div>
     </div>
   </div>
 
