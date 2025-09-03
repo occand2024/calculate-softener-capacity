@@ -24,6 +24,7 @@
       width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
       background: #0e1015; color: var(--fg); font-size: 15px;
     }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     button {
       width: 100%; padding: 12px 14px; border-radius: 12px; border: 0; cursor: pointer;
       background: var(--accent); color: white; font-weight: 700; font-size: 16px;
@@ -32,6 +33,8 @@
     th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); font-size: 18px; }
     th { color: #cbd5e1; font-weight: 700; }
     .muted { color: var(--muted); font-size: 13px; margin-top: 6px; }
+    .inline { display: flex; gap: 12px; align-items: center; }
+    .inline small { color: var(--muted); }
     .badge { display: inline-block; background: #0e1015; border: 1px solid var(--line); padding: 4px 8px; border-radius: 8px; color: #cbd5e1; font-size: 12px; }
   </style>
 </head>
@@ -41,7 +44,7 @@
     <p class="note">
       Calculates softener throughput (gallons) and regeneration interval using a 10% safety factor
       (<span class="badge">Capacity × 0.90</span>) to reduce hardness breakthrough risk.  
-      Includes common industrial tank sizes and dual/parallel vessel configurations.
+      Common resin capacity presets per ft³ are provided (6/9/12/15 lb salt dose).
     </p>
 
     <div class="card">
@@ -83,15 +86,6 @@
         </div>
 
         <div>
-          <label for="vesselCount">Vessel Count</label>
-          <select id="vesselCount">
-            <option value="1" selected>Single</option>
-            <option value="2">Dual / Parallel</option>
-          </select>
-          <div class="muted">Total system resin = per-vessel ft³ × vessel count.</div>
-        </div>
-
-        <div>
           <label for="saltPreset">Capacity per ft³ (select salt dose curve)</label>
           <select id="saltPreset">
             <option value="20000">6 lb/ft³ ≈ 20,000 grains/ft³</option>
@@ -122,11 +116,11 @@
       <h2 style="margin-top:0">Notes & Method</h2>
       <ul class="muted">
         <li><strong>Effective Hardness (gpg)</strong> = Hardness + 3×Fe(ppm) + 2×Mn(ppm).</li>
-        <li><strong>Total capacity (grains)</strong> = (Capacity/ft³) × (Total resin ft³).</li>
+        <li><strong>Total capacity (grains)</strong> = (Capacity/ft³) × (Resin ft³).</li>
         <li><strong>Throughput (gal)</strong> = Total capacity (gr) ÷ Effective hardness (gpg).</li>
         <li><strong>Apply 10% safety factor</strong>: Capacity_gal_safe = Capacity_gal × 0.90 (e.g., 26,087 × 0.90 = 23,478).</li>
         <li><strong>Regeneration interval (days)</strong> = Capacity_gal_safe ÷ Daily use (gpd).</li>
-        <li><strong>Salt per regeneration (lb)</strong> = Salt dose (lb/ft³) × Total resin ft³ (system).</li>
+        <li><strong>Salt per regeneration (lb)</strong> = Salt dose (lb/ft³) × Resin ft³.</li>
       </ul>
     </div>
   </div>
