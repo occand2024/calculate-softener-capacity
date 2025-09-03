@@ -78,6 +78,7 @@
         <div>
           <label for="saltPreset">Capacity per ft³ (based on salt dose)</label>
           <select id="saltPreset">
+            <option value="15000" disabled>15,000 grains/ft³ (not available)</option>
             <option value="20000">6 lb/ft³ ≈ 20,000 grains/ft³</option>
             <option value="24000" selected>9 lb/ft³ ≈ 24,000 grains/ft³</option>
             <option value="27000">12 lb/ft³ ≈ 27,000 grains/ft³</option>
@@ -95,12 +96,6 @@
           <input id="safetyPct" type="number" step="any" value="10" />
           <div class="muted">Default 10% (e.g., 26,087 × 0.90 = 23,478 gallons).</div>
         </div>
-
-        <div>
-          <label for="reservePct">Operational Reserve (%)</label>
-          <input id="reservePct" type="number" step="any" value="0" />
-          <div class="muted">Optional extra derate beyond safety (e.g., outages, variability).</div>
-        </div>
       </div>
 
       <div style="margin-top:16px">
@@ -112,7 +107,10 @@
       <h2 style="margin-top:0">Results</h2>
       <div id="results"></div>
       <div class="disclaimer">
-        <strong>Disclaimer:</strong> Peak/service flow, bed area/depth, temperature, resin type, backwash rates, leakage targets, and upstream pretreatment all affect sizing. We strongly suggest reaching out to <strong>Chemstar WATER’s technical team</strong> for an accurate design. This calculator is informational only and should not be used as the sole guide to size a softener. Chemstar WATER does not assume responsibility for sizing decisions made from this tool.
+        <strong>Disclaimer:</strong> Peak/service flow, bed area/depth, temperature, resin type, backwash rates, leakage targets, and upstream pretreatment all affect sizing.  
+        We strongly suggest reaching out to <strong>Chemstar WATER’s technical team</strong> for an accurate design.  
+        This calculator is informational only and should not be used as the sole guide to size a softener.  
+        Chemstar WATER does not assume responsibility for sizing decisions made from this tool.
       </div>
     </div>
   </div>
